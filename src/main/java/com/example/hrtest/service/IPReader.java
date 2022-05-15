@@ -24,7 +24,7 @@ public class IPReader {
                 line = reader.readLine();
             }
         } catch (IOException e) {
-            System.out.println("Не найден файл blacklist.txt");
+            System.out.println("Не найден файл blacklist.txt. Уточните путь файла.");
             e.printStackTrace();
         }
         return blackList;

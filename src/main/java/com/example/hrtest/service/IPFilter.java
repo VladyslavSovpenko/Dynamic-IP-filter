@@ -1,7 +1,6 @@
 package com.example.hrtest.service;
 
 
-import com.example.hrtest.model.Answer;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -30,6 +29,7 @@ public class IPFilter implements Filter {
         int entryTry = 1;
 
         String remoteAdr = req.getRemoteAddr();
+        System.out.println(remoteAdr);
 
         if (null == remoteAdr || remoteAdr.trim().equals("")) {
             throw new RuntimeException("IP The address is empty.,access denied!");
@@ -37,13 +37,11 @@ public class IPFilter implements Filter {
 
         if (!comparingIp(remoteAdr)) {
 //            LOGGER.info("Try to connect user in blacklist with ip= " + remoteAdr + ".  " + entryTry + " attempt blocked.");
-            Answer answer = new Answer("Access allowed");
-            request.setAttribute("answer", answer);
+            request.setAttribute("answer", "Access allowed");
             chain.doFilter(request, response);
         } else {
             entryTry++;
-            Answer answer = new Answer("Access disallowed");
-            request.setAttribute("answer", answer);
+            request.setAttribute("answer", "Access disallowed");
             chain.doFilter(request, response);
         }
     }
@@ -59,7 +57,6 @@ public class IPFilter implements Filter {
 
     @Override
     public void destroy() {
-
     }
 
 
